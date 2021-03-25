@@ -17,7 +17,7 @@
 		{
 			get
 			{
-				return this._itens ?? (this._itens = new ObservableCollection<ItemDemonstrativo>());
+				return _itens ?? (_itens = new ObservableCollection<ItemDemonstrativo>());
 			}
 		}
 

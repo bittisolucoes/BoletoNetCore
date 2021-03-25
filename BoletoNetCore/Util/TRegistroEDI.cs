@@ -48,7 +48,7 @@ namespace BoletoNetCore
         #region Métodos Públicos
         public void Adicionar(TTiposDadoEDI tipo, int posicao, int tamanho, int decimais, object valor, char prenchimento)
         {
-            this.CamposEDI.Add(new TCampoRegistroEDI(tipo, posicao, tamanho, decimais, valor, prenchimento));
+            CamposEDI.Add(new TCampoRegistroEDI(tipo, posicao, tamanho, decimais, valor, prenchimento));
         }
 
         /// <summary>
@@ -57,12 +57,12 @@ namespace BoletoNetCore
         public virtual void CodificarLinha()
         {
             var builder = new StringBuilder();
-            foreach (TCampoRegistroEDI campos in this._CamposEDI)
+            foreach (TCampoRegistroEDI campos in _CamposEDI)
             {
                 campos.CodificarNaturalParaEDI();
                 builder.Append(campos.ValorFormatado);
             }
-            this._LinhaRegistro = builder.ToString();
+            _LinhaRegistro = builder.ToString();
         }
 
         /// <summary>
@@ -70,13 +70,13 @@ namespace BoletoNetCore
         /// </summary>
         public virtual void DecodificarLinha()
         {
-            foreach (TCampoRegistroEDI campos in this._CamposEDI)
+            foreach (TCampoRegistroEDI campos in _CamposEDI)
             {
-                if (this._TamanhoMaximo > 0)
+                if (_TamanhoMaximo > 0)
                 {
-                    this._LinhaRegistro = this._LinhaRegistro.PadRight(this._TamanhoMaximo, this._CaracterPreenchimento);
+                    _LinhaRegistro = _LinhaRegistro.PadRight(_TamanhoMaximo, _CaracterPreenchimento);
                 }
-                campos.ValorFormatado = this._LinhaRegistro.Substring(campos.PosicaoInicial, campos.TamanhoCampo);
+                campos.ValorFormatado = _LinhaRegistro.Substring(campos.PosicaoInicial, campos.TamanhoCampo);
                 campos.DecodificarEDIParaNatural();
             }
         }

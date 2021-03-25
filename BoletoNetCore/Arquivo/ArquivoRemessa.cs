@@ -10,7 +10,7 @@ namespace BoletoNetCore
         public TipoArquivo TipoArquivo { get; set; }
         public int NumeroArquivoRemessa { get; set; }
 
-        public string NomeArquivo => this.Banco?.FormatarNomeArquivoRemessa(this.NumeroArquivoRemessa); //
+        public string NomeArquivo => Banco?.FormatarNomeArquivoRemessa(NumeroArquivoRemessa); //
 
         public ArquivoRemessa(IBanco banco, TipoArquivo tipoArquivo, int numeroArquivoRemessa)
         {
@@ -35,7 +35,7 @@ namespace BoletoNetCore
                     valorCobrancaDescontada = 0;
 
                 int tamanhoRegistro;
-                if (this.TipoArquivo == TipoArquivo.CNAB240)
+                if (TipoArquivo == TipoArquivo.CNAB240)
                     tamanhoRegistro = 240;
                 else
                     tamanhoRegistro = 400;
@@ -44,7 +44,7 @@ namespace BoletoNetCore
                 string strline = String.Empty;
 
                 // Header do Arquivo
-                strline = Banco.GerarHeaderRemessa(this.TipoArquivo, this.NumeroArquivoRemessa, ref numeroRegistroGeral);
+                strline = Banco.GerarHeaderRemessa(TipoArquivo, NumeroArquivoRemessa, ref numeroRegistroGeral);
                 if (String.IsNullOrWhiteSpace(strline))
                     throw new Exception("Registro HEADER obrigatório.");
                 strline = FormataLinhaArquivoCNAB(strline, tamanhoRegistro);
@@ -54,10 +54,10 @@ namespace BoletoNetCore
                 {
                     // Todos os boletos da coleção devem ser do mesmo banco da geração do arquivo remessa
                     // A solução aqui é forçar essa relação, mas talvez seja melhor subir uma exceção detalhando o erro.
-                    boleto.Banco = this.Banco;
+                    boleto.Banco = Banco;
 
                     // Detalhe do arquivo
-                    strline = boleto.Banco.GerarDetalheRemessa(this.TipoArquivo, boleto, ref numeroRegistroGeral);
+                    strline = boleto.Banco.GerarDetalheRemessa(TipoArquivo, boleto, ref numeroRegistroGeral);
                     if (String.IsNullOrWhiteSpace(strline))
                         throw new Exception("Registro DETALHE obrigatório.");
                     strline = FormataLinhaArquivoCNAB(strline, tamanhoRegistro);
@@ -89,7 +89,7 @@ namespace BoletoNetCore
                 }
 
                 // Trailler do Arquivo
-                strline = Banco.GerarTrailerRemessa(this.TipoArquivo, this.NumeroArquivoRemessa,
+                strline = Banco.GerarTrailerRemessa(TipoArquivo, NumeroArquivoRemessa,
                                                             ref numeroRegistroGeral, valorBoletoGeral,
                                                             numeroRegistroCobrancaSimples, valorCobrancaSimples,
                                                             numeroRegistroCobrancaVinculada, valorCobrancaVinculada,

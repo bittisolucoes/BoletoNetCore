@@ -51,7 +51,7 @@ namespace BoletoNetCore
         }
         public string GerarHeaderRemessa(TipoArquivo tipoArquivo, int numeroArquivoRemessa, ref int numeroRegistroGeral)
         {
-            this.NumeroArquivoRemessaCNAB400 = numeroArquivoRemessa;
+            NumeroArquivoRemessaCNAB400 = numeroArquivoRemessa;
             try
             {
                 var header = Empty;
@@ -251,7 +251,7 @@ namespace BoletoNetCore
         {
             try
             {
-                var numeroArquivoRemessa3Digitos = this.NumeroArquivoRemessaCNAB400.ToString().PadLeft(3, '0');
+                var numeroArquivoRemessa3Digitos = NumeroArquivoRemessaCNAB400.ToString().PadLeft(3, '0');
                 numeroArquivoRemessa3Digitos = numeroArquivoRemessa3Digitos.Substring(numeroArquivoRemessa3Digitos.Length - 3);
                 numeroRegistroGeral++;
                 var reg = new TRegistroEDI();
@@ -339,7 +339,7 @@ namespace BoletoNetCore
         {
             try
             {
-                var numeroArquivoRemessa3Digitos = this.NumeroArquivoRemessaCNAB400.ToString().PadLeft(3, '0');
+                var numeroArquivoRemessa3Digitos = NumeroArquivoRemessaCNAB400.ToString().PadLeft(3, '0');
                 numeroArquivoRemessa3Digitos = numeroArquivoRemessa3Digitos.Substring(numeroArquivoRemessa3Digitos.Length-3);
                 numeroRegistroGeral++;
                 var reg = new TRegistroEDI();

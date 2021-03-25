@@ -128,7 +128,7 @@ namespace BoletoNetCore
             if (tipoRegistro == "3" & tipoSegmento == "T")
             {
                 // Segmento T - Indica um novo boleto
-                var boleto = new Boleto(this.Banco, _ignorarCarteiraBoleto);
+                var boleto = new Boleto(Banco, _ignorarCarteiraBoleto);
                 Banco.LerDetalheRetornoCNAB240SegmentoT(ref boleto, registro);
                 Boletos.Add(boleto);
                 return;
@@ -179,7 +179,7 @@ namespace BoletoNetCore
             Boleto boleto = null;
             if (novoBoleto)
             {
-                boleto = new Boleto(this.Banco, _ignorarCarteiraBoleto);
+                boleto = new Boleto(Banco, _ignorarCarteiraBoleto);
             }
             else
             {
